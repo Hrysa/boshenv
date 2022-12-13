@@ -21,6 +21,11 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias gst='git status'
+alias gpl='git pull --rebase'
+alias gph='git push && git push --tags'
+alias gcmt='git commit'
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=500000
 SAVEHIST=500000

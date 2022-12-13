@@ -4,7 +4,6 @@ Function gst { git status }
 Function gpl { git pull --rebase }
 Function gph { git push; git push --tags }
 Function gcmt { git commit }
-Function gff { git diff $args }
 
 # Shows navigable menu of all options when hitting Tab
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
