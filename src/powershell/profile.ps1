@@ -1,9 +1,11 @@
-oh-my-posh init pwsh --config "~\oh-my-posh\mojo.omp.json" | Invoke-Expression
+Invoke-Expression (&starship init powershell)
 
 Function gst { git status }
 Function gpl { git pull --rebase }
 Function gph { git push; git push --tags }
 Function gcmt { git commit }
+
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 
 # Shows navigable menu of all options when hitting Tab
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete

@@ -1,8 +1,8 @@
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-# enable oh-my-posh
-eval "$(oh-my-posh init zsh --config ~/.oh-my-posh/mojo.omp.json )"
+eval "$(starship init zsh)"
+
 source ~/.zsh_plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # enable color support of ls and also add handy aliases

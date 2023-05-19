@@ -1,13 +1,14 @@
-Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+winget install --id Starship.Starship
 
-Copy-Item .\src\windows\profile.ps1 -Destination $PROFILE
+Copy-Item .\src\powershell\profile.ps1 -Destination $PROFILE
 
-
-$path = "~\oh-my-posh"
+$path = "~\.config"
 If(!(test-path -PathType container $path))
 {
       New-Item -ItemType Directory -Path $path
 }
 
-Copy-Item .\src\mojo.omp.json -Destination ~\oh-my-posh\
+Copy-Item .\src\starship.toml -Destination ~\.config\
+Copy-Item .\src\vimrc.vim -Destination ~\.vimrc
+
 . $PROFILE
