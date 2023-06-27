@@ -17,9 +17,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # commands alias
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -aGlF'
+alias la='ls -AG'
+alias l='ls -GCF'
 
 alias gst='git status'
 alias gpl='git pull --rebase'
@@ -36,8 +36,6 @@ function kn()
 {
     kubectl $@ -n $(basename `pwd`)
 }
-
-# alias proxy="http_proxy=$proxy_url https_proxy=$proxy_url"
 
 proxy()
 {
