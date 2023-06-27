@@ -7,10 +7,15 @@ set wildmenu            " display completion matches in a status line
 
 set ttimeout            " time out for key codes
 set ttimeoutlen=100     " wait up to 100ms after Esc for special key
+set noswapfile
 
 syntax on
 
+let mapleader=','
+
 set nu
+
+:colorscheme slate
 
 " Show @@@ in the last line if it is truncated.
 set display=truncate
@@ -36,3 +41,7 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 " Revert with ":iunmap <C-U>".
 inoremap <C-U> <C-G>u<C-U>
+
+map <leader>, :q<Enter>
+map <leader>v <C-v>
+imap jj <ESC>

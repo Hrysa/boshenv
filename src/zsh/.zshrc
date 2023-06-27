@@ -29,3 +29,17 @@ alias gcmt='git commit'
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=500000
 SAVEHIST=500000
+
+# kubernetes
+alias k='kubectl'
+function kn()
+{
+    kubectl $@ -n $(basename `pwd`)
+}
+
+# alias proxy="http_proxy=$proxy_url https_proxy=$proxy_url"
+
+proxy()
+{
+   http_proxy=$proxy_url https_proxy=$proxy_url $@
+}
