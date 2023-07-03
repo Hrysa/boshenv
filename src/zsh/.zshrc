@@ -48,7 +48,7 @@ function set_term_title()
     echo -n -e "\033]0;$USER@$HOST\007"
 }
 
-unset -f ssh
+unset -f ssh 2>/dev/null
 raw_ssh=$(which ssh)
 function ssh()
 {
