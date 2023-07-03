@@ -41,3 +41,18 @@ proxy()
 {
    http_proxy=$proxy_url https_proxy=$proxy_url $@
 }
+
+
+function set_term_title()
+{
+    echo -n -e "\033]0;$USER@$HOST\007"
+}
+
+unset -f ssh
+raw_ssh=$(which ssh)
+function ssh()
+{
+    $raw_ssh $@; set_term_title
+}
+
+set_term_title

@@ -4,6 +4,7 @@ Function gst { git status $args }
 Function gpl { git pull --rebase $args }
 Function gph { git push; git push --tags $args }
 Function gcmt { git commit -m "$args" }
+Function ssh { ssh.exe $args; $Host.UI.RawUI.WindowTitle = "PowerShell" }
 
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
