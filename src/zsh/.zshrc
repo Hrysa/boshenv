@@ -39,7 +39,17 @@ function kn()
 
 proxy()
 {
-   http_proxy=$proxy_url https_proxy=$proxy_url $@
+    if [ -f "$HOME/.config/proxy_url" ]; then
+        proxy_url=$(cat $HOME/.config/proxy_url)
+    fi
+
+    if [ "$proxy_url" = "" ]; then
+        echo -n "no proxy set, input new one: "
+        read proxy_url
+        echo $proxy_url > $HOME/.config/proxy_url
+    fi
+    echo using proxy $proxy_url
+    http_proxy=$proxy_url https_proxy=$proxy_url $@
 }
 
 
