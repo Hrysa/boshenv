@@ -48,3 +48,4 @@ Import-Module posh-git
 Import-Module CompletionPredictor
 
 Set-Alias j z
+Set-Alias l dir

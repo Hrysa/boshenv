@@ -9,13 +9,20 @@ set ttimeout            " time out for key codes
 set ttimeoutlen=100     " wait up to 100ms after Esc for special key
 set noswapfile
 
+set autoindent expandtab ts=4 sw=4
+
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+
 syntax on
 
 let mapleader=','
 
 set nu
 
-:colorscheme slate
+if has('termguicolors')
+    set termguicolors
+endif
 
 " Show @@@ in the last line if it is truncated.
 set display=truncate
@@ -42,6 +49,12 @@ map Q gq
 " Revert with ":iunmap <C-U>".
 inoremap <C-U> <C-G>u<C-U>
 
-map <leader>, :q<Enter>
 map <leader>v <C-v>
 imap jj <ESC>
+map <leader>q :q<Enter>
+map <leader>, :w<Enter>
+map <leader>,, :w!<Enter>
+map <leader>v <C-v>
+map <leader>w bve
+map F <C-f>
+map B <C-b>
