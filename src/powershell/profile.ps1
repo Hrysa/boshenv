@@ -1,10 +1,21 @@
-Invoke-Expression (&starship init powershell)
+function prompt {
+  if ("$(Get-Location)" -Eq $HOME) {
+    $p = "~"
+  } else {
+    $p = Split-Path -leaf -path (Get-Location)
+  }
+  $dt = [System.DateTime]::Now.ToString("HH:mm.ss");
 
-Function gst { git status $args }
-Function gpl { git pull --rebase $args }
-Function gph { git push; git push --tags $args }
-Function gcmt { git commit -m "$args" }
-Function ssh { ssh.exe $args; $Host.UI.RawUI.WindowTitle = "PowerShell" }
+  Write-Host " $dt" -NoNewline
+    Write-Host " $p" -ForegroundColor Cyan -NoNewline
+    " "
+}
+
+function gst { git status $args }
+function gpl { git pull --rebase $args }
+function gph { git push }
+function gcmt { git commit -m "$args" }
+function ssh { ssh.exe $args; $Host.UI.RawUI.WindowTitle = "PowerShell" }
 
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
@@ -20,32 +31,21 @@ Set-PSReadlineKeyHandler -Key ctrl+d -Function ViExit
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
-# white theme !!!
-$ISETheme = @{
-    Command                  = $PSStyle.Foreground.FromRGB(0x0000FF)
-    Comment                  = $PSStyle.Foreground.FromRGB(0x006400)
-    ContinuationPrompt       = $PSStyle.Foreground.FromRGB(0x0000FF)
-    Default                  = $PSStyle.Foreground.FromRGB(0x0000FF)
-    Emphasis                 = $PSStyle.Foreground.FromRGB(0x287BF0)
-    Error                    = $PSStyle.Foreground.FromRGB(0xE50000)
-    InlinePrediction         = $PSStyle.Foreground.FromRGB(0x93A1A1)
-    Keyword                  = $PSStyle.Foreground.FromRGB(0x00008b)
-    ListPrediction           = $PSStyle.Foreground.FromRGB(0x06DE00)
-    Member                   = $PSStyle.Foreground.FromRGB(0x000000)
-    Number                   = $PSStyle.Foreground.FromRGB(0x800080)
-    Operator                 = $PSStyle.Foreground.FromRGB(0x757575)
-    Parameter                = $PSStyle.Foreground.FromRGB(0x000080)
-    String                   = $PSStyle.Foreground.FromRGB(0x8b0000)
-    Type                     = $PSStyle.Foreground.FromRGB(0x008080)
-    Variable                 = $PSStyle.Foreground.FromRGB(0xff4500)
-    ListPredictionSelected   = $PSStyle.Background.FromRGB(0x93A1A1)
-    Selection                = $PSStyle.Background.FromRGB(0x00BFFF)
+$null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCount 1 -Action {
+  Import-Module Z
+    Import-Module posh-git
+    Import-Module CompletionPredictor
 }
-Set-PSReadLineOption -Colors $ISETheme
-
-Import-Module Z
-Import-Module posh-git
-Import-Module CompletionPredictor
 
 Set-Alias j z
+Set-Alias j z
 Set-Alias l dir
+Set-Alias k kubectl
+Set-Alias vsb "$(& 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe' -latest -products * -property installationPath)\Common7\Tools\Launch-VsDevShell.ps1"
+function kn { k -n (Split-Path -leaf -path (Get-Location)) $args }
+
+If (Get-Command -Name "kubectl" -ErrorAction SilentlyContinue) {
+  Invoke-Expression "$(kubectl completion powershell)"
+  Register-ArgumentCompleter -CommandName 'k' -ScriptBlock $__kubectlCompleterBlock
+  Register-ArgumentCompleter -CommandName 'kn' -ScriptBlock $__kubectlCompleterBlock
+}

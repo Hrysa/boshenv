@@ -3,12 +3,11 @@
 os=$(uname)
 
 if [ "FreeBSD" = "$os" ]; then
-    sudo pkg install -y zsh vim starship git
+    sudo pkg install -y zsh vim git
 fi
 
 if [ "Linux" = "$os" ]; then
-    sudo apt install -y zsh vim git curl
-    curl -sS https://starship.rs/install.sh | sh
+    sudo apt install -y zsh vim git
 fi
 
 sh _init_zsh.sh

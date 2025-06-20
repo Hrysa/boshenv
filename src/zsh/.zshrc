@@ -3,7 +3,23 @@ setopt INTERACTIVE_COMMENTS
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-eval "$(starship init zsh)"
+# 
+if [[ "`uname`" == "Linux" ]]; then
+    os_name=`lsb_release -a`
+    if [[ "$os_name" = *"Debian"* ]]; then
+        system_icon=" "
+    elif [[ "$os_name" = *"Ubuntu"* ]]; then
+        system_icon=" "
+    fi
+elif [[ "`uname`" == "FreeBSD" ]]; then
+    system_icon=" "
+fi
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%b '
+setopt PROMPT_SUBST
+PROMPT='${system_icon}%F{white}%*%f %F{cyan}%~%f %F{red}${vcs_info_msg_0_}%f'
 
 source ~/.zsh_plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 

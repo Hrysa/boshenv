@@ -3,7 +3,7 @@
 ## linux
 ```sh
 # may need proxy
-https_proxy=http://host:port bash init_linux.sh
+https_proxy=http://host:port bash init_posix.sh
 ```
 
 ## windows
