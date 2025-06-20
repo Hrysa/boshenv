@@ -7,7 +7,6 @@ install_zsh_plugin()
 mkdir -p ~/.config
 
 # place all config files
-cp src/starship.toml ~/.config
 cp src/zsh/.zshrc ~/.zshrc
 cp src/vimrc.vim ~/.vimrc
 
