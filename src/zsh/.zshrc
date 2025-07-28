@@ -13,6 +13,8 @@ if [[ "`uname`" == "Linux" ]]; then
     fi
 elif [[ "`uname`" == "FreeBSD" ]]; then
     system_icon=" "
+elif [[ "`uname`" == "Darwin" ]]; then
+    system_icon=" "
 fi
 
 autoload -Uz vcs_info
@@ -20,6 +22,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
 setopt PROMPT_SUBST
 PROMPT='${system_icon}%F{white}%*%f %F{cyan}%~%f %F{red}${vcs_info_msg_0_}%f'
+PROMPT='${system_icon}%*%f %F{cyan}%~%f %F{red}${vcs_info_msg_0_}%f'
 
 source ~/.zsh_plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
@@ -42,7 +45,7 @@ alias l='ls -GCF'
 alias gst='git status'
 alias gpl='git pull --rebase'
 alias gph='git push && git push --tags'
-alias gcmt='git commit'
+alias gcmt='git commit -m'
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=500000
@@ -71,16 +74,4 @@ proxy()
 }
 
 
-function set_term_title()
-{
-    echo -n -e "\033]0;$USER@$HOST\007"
-}
-
-unset -f ssh 2>/dev/null
-raw_ssh=$(which ssh)
-function ssh()
-{
-    $raw_ssh $@; set_term_title
-}
-
-set_term_title
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
